@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phishing Link Scanner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <span class="badge">On the Line Activity</span>
+
+  <div class="title-row">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="7" stroke="#E3A73E" stroke-width="2"/>
+      <path d="m20 20-3.2-3.2" stroke="#E3A73E" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8.2 11.5 10 13.3l4.3-4.3" stroke="#4FB286" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1>Phishing Link Scanner</h1>
+  </div>
+
+  <p class="lede">Drop a suspicious link in the box below and this tool will break down the warning signs — the same tricks phishing sites use to fool people into handing over their info.</p>
+
+  <div class="card">
+    <label class="field">Link you want to inspect</label>
+    <div class="input-row">
+      <input type="text" id="input" placeholder="e.g. https://accounts-secure-login.com">
+      <button class="check-btn" onclick="analyze()">Analyze</button>
+    </div>
+    <div class="examples">
+      Not sure what to test? <a onclick="loadExample('safe')">try a legit link</a><span class="sep">·</span><a onclick="loadExample('bad')">try a phishing link</a>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <div class="examples-section">
+    <h2 class="section-title">What phishing actually looks like</h2>
+    <p class="section-sub">Links aren't the whole story — most phishing shows up as a full email or text first. Here's a side-by-side of a fake and a real one.</p>
+
+    <div class="msg-grid">
+
+      <div class="msg-card msg-bad">
+        <div class="msg-tag bad">Phishing example</div>
+        <div class="msg-meta">
+          <span class="msg-from">From: PayPaI Security &lt;alert@paypal-secure-login.verify-account.xyz&gt;</span>
+          <span class="msg-subject">Subject: Your account has been limited — action required</span>
+        </div>
+        <div class="msg-body">
+          <p>Dear Customer,</p>
+          <p>We detected unusual activity on your account. Your access has been <b>temporarily limited</b>. To avoid permanent suspension, verify your identity within <b>24 hours</b>.</p>
+          <p><a class="fake-link">Confirm My Account →</a></p>
+          <p>Failure to act immediately will result in permanent account closure.</p>
+          <p>— PayPal Account Review Team</p>
+        </div>
+        <ul class="annotations">
+          <li><span class="dot bad"></span>Generic greeting — "Dear Customer," not your real name</li>
+          <li><span class="dot bad"></span>Sender domain mimics the brand but isn't the real one</li>
+          <li><span class="dot bad"></span>Manufactured urgency and a countdown ("24 hours")</li>
+          <li><span class="dot bad"></span>Threatens a consequence (account closure) to rush you</li>
+          <li><span class="dot bad"></span>Pushes you to click instead of logging in directly</li>
+        </ul>
+      </div>
+
+      <div class="msg-card msg-good">
+        <div class="msg-tag good">Legit example</div>
+        <div class="msg-meta">
+          <span class="msg-from">From: PayPal &lt;service@paypal.com&gt;</span>
+          <span class="msg-subject">Subject: A new device signed in to your account</span>
+        </div>
+        <div class="msg-body">
+          <p>Hi Alex,</p>
+          <p>We noticed a new sign-in to your account from a Windows device in Manila, Philippines on Aug 11, 2026.</p>
+          <p>If this was you, no action is needed. If you don't recognize this activity, we recommend changing your password from the app or by typing paypal.com directly into your browser.</p>
+          <p>— The PayPal Team</p>
+        </div>
+        <ul class="annotations">
+          <li><span class="dot good"></span>Addresses you by name, not a generic label</li>
+          <li><span class="dot good"></span>Sender address matches the real company domain</li>
+          <li><span class="dot good"></span>States facts (device, location, date) instead of vague threats</li>
+          <li><span class="dot good"></span>No countdown, no "act now or else"</li>
+          <li><span class="dot good"></span>Tells you to type the address yourself rather than click a link</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>— a quick phishing checker for the activity —</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
